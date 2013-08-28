@@ -1,9 +1,9 @@
 class Board
 
-	attr_accessor :board
+	attr_accessor :grid
 
 	def initialize
-		@board = (0..8).to_a
+		@grid = (0..8).to_a
 	end
 
 	def print_board
@@ -11,42 +11,42 @@ class Board
 		puts "3 4 5"
 		puts "6 7 8"
 		puts " "
-		@board.each_slice(3) {|row| p row.map{|cell| cell.class == Fixnum ? '-' : cell}}
+		@grid.each_slice(3) {|row| p row.map{|cell| cell.class == Fixnum ? '-' : cell}}
 	end
 
 	def store_position(position, participant)
 		if participant == "player"
-			@board[position] = "X"
+			@grid[position] = "X"
 		else
-			@board[position] = "Y"
+			@grid[position] = "O"
 		end
 	end
 
 	def position(position)
-		@board[position]
+		@grid[position]
 	end
 
 	def remove_position(position)
-		@board[position] = position
+		@grid[position] = position
 	end
 
 	def unoccupied(position)
-		@board[position].class == Fixnum
+		@grid[position].class == Fixnum
 	end
 
 	def player_moves
-		@board.count("X")
+		@grid.count("X")
 	end
 
 	def computer_moves
-		@board.count("Y")
+		@grid.count("O")
 	end
 
 	def check_computer_win
 		 9.times do |i|
 				if unoccupied(i)
 					store_position(i, "computer")
-					if victory_check("Y")
+					if victory_check("O")
 						return true
 					else
 						remove_position(i)
@@ -69,14 +69,14 @@ class Board
 	end
 
 	def victory_check(player)
-		if @board[0] == player && @board[1] == player && @board[2] == player or
-			@board[3] == player && @board[4] == player && @board[5] == player or
-			@board[6] == player && @board[7] == player && @board[8] == player or
-			@board[0] == player && @board[3] == player && @board[6] == player or
-			@board[1] == player && @board[4] == player && @board[7] == player or
-			@board[2] == player && @board[5] == player && @board[8] == player or
-			@board[0] == player && @board[4] == player && @board[8] == player or
-			@board[2] == player && @board[4] == player && @board[6] == player
+		if @grid[0] == player && @grid[1] == player && @grid[2] == player or
+			@grid[3] == player && @grid[4] == player && @grid[5] == player or
+			@grid[6] == player && @grid[7] == player && @grid[8] == player or
+			@grid[0] == player && @grid[3] == player && @grid[6] == player or
+			@grid[1] == player && @grid[4] == player && @grid[7] == player or
+			@grid[2] == player && @grid[5] == player && @grid[8] == player or
+			@grid[0] == player && @grid[4] == player && @grid[8] == player or
+			@grid[2] == player && @grid[4] == player && @grid[6] == player
 			true
 		end
 	end
