@@ -52,7 +52,7 @@ describe Game do
 		fun_game.prompt
 	end
 
-	describe '.first_move' do
+	describe '#first_move' do
 		let!(:new_board) {Board.new}
 
 		it "should take the center if unoccupied" do
@@ -63,7 +63,7 @@ describe Game do
 		end
 	end
 
-	describe '.computer_move' do
+	describe '#computer_move' do
 		let!(:new_board) {Board.new}
 		before(:each) do
 			Board.stub(:new).and_return(new_board)
@@ -81,5 +81,7 @@ describe Game do
 			fun_game.computer_move
 			new_board.grid.should ==  ["X",1,"O","O","O","X",6,7,"X"]
 		end
+
+
 	end
 end
