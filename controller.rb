@@ -1,4 +1,4 @@
-require './play'
+require './game'
 
 
 fun_game = Game.new

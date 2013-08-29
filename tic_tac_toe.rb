@@ -14,6 +14,19 @@ class Board
 		@grid.each_slice(3) {|row| p row.map{|cell| cell.class == Fixnum ? '-' : cell}}
 	end
 
+	def same_player_opposite_corners(participant)
+		(@grid[0] == @grid[8] || @grid[2] == @grid[6]) ? true : false
+	end
+
+	def left_top_corner_computer_bottom_rt_player
+		# if center is x, left corner must be O, check against bottom rt corner x
+		(@grid[0] == "O" && @grid[8] == "X") ? true :false
+	end
+
+	def edge_case
+		@grid[1] == "X" && @grid[3] == "X" && @grid[8] == "X" ? true : false
+	end
+
 	def store_position(position, participant)
 		if participant == "player"
 			@grid[position] = "X"
@@ -42,25 +55,26 @@ class Board
 		@grid.count("O")
 	end
 
-	def check_computer_win
-		 9.times do |i|
-				if unoccupied(i)
-					store_position(i, "computer")
-					if victory_check("O")
-						return true
-					else
-						remove_position(i)
-					end
-				end
-			end
+	def random_fill
+		i = 0
+		until unoccupied(i)
+			i += 1
+		end
+		puts i
+		store_position(i, "computer")
 	end
 
-	def check_player_win
+	def check_participant_win(participant)
+		player = (participant == "X" ? "player" : "computer")
 		 9.times do |i|
 				if unoccupied(i)
-					store_position(i, "player")
-					if victory_check("X")
-						store_position(i, "computer")
+					store_position(i, player)
+					if victory_check(participant)
+						if participant == "O"
+							return true
+						else
+							store_position(i, "computer")
+						end
 					else
 						remove_position(i)
 					end

@@ -1,2 +1,2 @@
-require_relative '../tic_tac_toe'
-require_relative '../play'
+require './tic_tac_toe'
+require './game.rb'
