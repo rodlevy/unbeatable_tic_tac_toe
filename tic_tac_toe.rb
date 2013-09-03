@@ -6,13 +6,13 @@ class Board
 		@grid = (0..8).to_a
 	end
 
-	def print_board
-		puts "0 1 2"
-		puts "3 4 5"
-		puts "6 7 8"
-		puts " "
-		@grid.each_slice(3) {|row| p row.map{|cell| cell.class == Fixnum ? '-' : cell}}
-	end
+	# def print_board
+	# 	puts "0 1 2"
+	# 	puts "3 4 5"
+	# 	puts "6 7 8"
+	# 	puts " "
+	# 	@grid.each_slice(3) {|row| p row.map{|cell| cell.class == Fixnum ? '-' : cell}}
+	# end
 
 	def same_player_opposite_corners(participant)
 		(@grid[0] == @grid[8] || @grid[2] == @grid[6]) ? true : false
@@ -60,7 +60,6 @@ class Board
 		until unoccupied(i)
 			i += 1
 		end
-		puts i
 		store_position(i, "computer")
 	end
 

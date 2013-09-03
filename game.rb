@@ -1,4 +1,5 @@
 require_relative 'tic_tac_toe'
+require './interface.rb'
 require 'pry'
 
 class Game
@@ -6,12 +7,13 @@ class Game
 
 	def initialize
 		@board = Board.new
+		@interface = Interface.new
 	end
 
-	def prompt
-		position = gets.chomp
-		@position = check(position)
-	end
+	# def prompt
+	# 	position = gets.chomp
+	# 	@position = check(position)
+	# end
 
 	def check(position)
 		if position == "0"
@@ -19,26 +21,25 @@ class Game
 		elsif position.to_i < 9 && position.to_i > 0
 			return position.to_i
 		else
-			puts "#{position} isnt no good"
+			@interface.reject(position)
 			false
 		end
-
 	end
 
 	def play
-		@board.print_board
-		puts "Where do you want to place your X?"
-		prompt
+		@interface.pretty_print_board(@board.grid)
+		@position = check(@interface.prompt)
+
 		 if !@position
 				play
 		end
 		if !@board.unoccupied(@position)
-			puts "Already occupied, try again"
+			@interface.denied
 			play
 		end
 		@board.store_position(@position, "player")
 		if @board.player_moves + @board.computer_moves == 9
-			puts "CATS GAME!"
+			@interface.cats_game
 			return
 		end
 		if @board.victory_check("X") == true
@@ -46,8 +47,8 @@ class Game
 		else
 			computer_move
 			if @board.victory_check("O") == true
-				puts "Computer Wins"
-				@board.print_board
+				@interface.computer_wins
+				@interface.pretty_print_board(@board.grid)
 				return
 			end
 			play
