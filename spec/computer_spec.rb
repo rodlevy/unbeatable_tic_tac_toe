@@ -5,7 +5,7 @@ describe Computer do
 	let!(:new_interface) {Interface.new}
 	let!(:new_board) {Board.new}
 	let(:new_computer) {Computer.new}
-	let(:fun_game) {Game.new(new_board, new_interface, new_computer)}
+	let(:fun_game) {Game.new(new_interface, new_computer)}
 
 	describe '#first_move' do
 		before(:each) do

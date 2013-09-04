@@ -1,13 +1,13 @@
 class Interface
 
-	def board_size(board)
+	def board_size
 		puts "What size board do you want to play (9, 16)"
 		size = gets.chomp
 		if size == "9" || size == "16"
-			board.size = size.to_i
+			return size.to_i
 		else
 			puts "Please enter 9 or 16"
-			board_size(board)
+			board_size
 		end
 
 	end
@@ -18,10 +18,6 @@ class Interface
 		axis_length = Math.sqrt(size).to_i
 	    size.times do |position|
 	      output << " #{grid[position]} "
-	      # case position % axis_length
-	      # when 0, 1 then output << "|"
-	      # when 2 then output << "\n-----------\n" unless position == (size - 1)
-	      # end
 	      if position % axis_length == (axis_length - 1)
 	      	output << "\n" unless position == (size - 1)
 	      else
@@ -33,7 +29,7 @@ class Interface
 	      end
 
 	    end
-	    puts "Your Board \n\n\n" + output
+	    puts "\n Your Board \n\n\n" + output
 	  end
 
 	def prompt

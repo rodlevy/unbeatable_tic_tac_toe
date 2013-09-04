@@ -1,12 +1,11 @@
-# require 'board'
+2# require 'board'
 # require 'interface'
 require 'pry'
 
 class Game
 	attr_accessor :position
 
-	def initialize(board, interface, computer)
-		@board = board
+	def initialize(interface, computer)
 		@interface = interface
 		@computer = computer
 	end
@@ -24,8 +23,7 @@ class Game
 	end
 
 	def play
-		@interface.board_size(@board)
-		@board.grid = (0..(@board.size - 1)).to_a
+		@board = Board.new(@interface.board_size)
 		@interface.pretty_print_board(@board.grid)
 		@position = check(@interface.prompt, @board.grid)
 

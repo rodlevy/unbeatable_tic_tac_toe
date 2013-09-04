@@ -5,58 +5,22 @@ COMPUTER = "O"
 
 	attr_accessor :grid, :size
 
-	# def initialize
-	# 	@grid = (0..8).to_a
-	# end
-
-	def same_player_opposite_corners(participant)
-		(@grid[0] == @grid[8] || @grid[2] == @grid[6]) ? true : false
+	def initialize(grid_size)
+		@grid = (0..(grid_size - 1)).to_a
 	end
 
-	def left_top_corner_computer_bottom_rt_player
-		# if center is x, left corner must be O, check against bottom rt corner x
-		(@grid[0] == COMPUTER && @grid[8] == PLAYER) ? true :false
-	end
+# for a given round (9 rounds in 3x3)
+# determine whose turn it is (x or o),
+# make a duplicate board
+# # fill the first available spot
+# check for win?
+# if no win, store the state of the board, the current depth, the board_score(1,0,-1), and the parent state
+# 	go make another move, repeat from check for win
+# 	keep going until win
 
-	def edge_case
-		@grid[1] == PLAYER && @grid[3] == PLAYER && @grid[8] == PLAYER ? true : false
-	end
+# repeat for other children of that node, filling the next move until all wins are found
 
-	def store_position(position, participant)
-		if participant == "player"
-			@grid[position] = PLAYER
-		else
-			@grid[position] = COMPUTER
-		end
-	end
 
-	def position(position)
-		@grid[position]
-	end
-
-	def remove_position(position)
-		@grid[position] = position
-	end
-
-	def unoccupied(position)
-		@grid[position].class == Fixnum
-	end
-
-	def player_moves
-		@grid.count(PLAYER)
-	end
-
-	def computer_moves
-		@grid.count(COMPUTER)
-	end
-
-	def random_fill
-		i = 0
-		until unoccupied(i)
-			i += 1
-		end
-		store_position(i, "computer")
-	end
 
 	def check_participant_win(participant)
 		player = (participant == PLAYER ? "player" : "computer")
@@ -76,18 +40,75 @@ COMPUTER = "O"
 			end
 	end
 
-	def victory_check(player)
-		if @grid[0] == player && @grid[1] == player && @grid[2] == player or
-			@grid[3] == player && @grid[4] == player && @grid[5] == player or
-			@grid[6] == player && @grid[7] == player && @grid[8] == player or
-			@grid[0] == player && @grid[3] == player && @grid[6] == player or
-			@grid[1] == player && @grid[4] == player && @grid[7] == player or
-			@grid[2] == player && @grid[5] == player && @grid[8] == player or
-			@grid[0] == player && @grid[4] == player && @grid[8] == player or
-			@grid[2] == player && @grid[4] == player && @grid[6] == player
-			true
+
+	def winning_possibilities
+		if grid.length == 9
+			[[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
 		end
 	end
 
-end
+	def winner?(player)
+		winning_possibilities.each do |win|
+			if grid[win[0]] == player && grid[win[1]] == player && grid[win[2]] == player
+				return true
+			end
+		end
+	end
 
+	def occupied?(grid, location)
+		grid[location].class == Fixnum ? false : grid[location]
+	end
+
+	def take_turn(player)
+		player == "X" ? "O" : "X"
+	end
+
+	def store_position(position, participant)
+		if participant == "player"
+			@grid[position] = PLAYER
+		else
+			@grid[position] = COMPUTER
+		end
+	end
+
+	# def victory_check(player)
+	# 	if @grid[0] == player && @grid[1] == player && @grid[2] == player or
+	# 		@grid[3] == player && @grid[4] == player && @grid[5] == player or
+	# 		@grid[6] == player && @grid[7] == player && @grid[8] == player or
+	# 		@grid[0] == player && @grid[3] == player && @grid[6] == player or
+	# 		@grid[1] == player && @grid[4] == player && @grid[7] == player or
+	# 		@grid[2] == player && @grid[5] == player && @grid[8] == player or
+	# 		@grid[0] == player && @grid[4] == player && @grid[8] == player or
+	# 		@grid[2] == player && @grid[4] == player && @grid[6] == player
+	# 		true
+	# 	end
+	# end
+
+	# def position(position)
+	# 	@grid[position]
+	# end
+
+	# def remove_position(position)
+	# 	@grid[position] = position
+	# end
+
+	# def unoccupied(position)
+	# 	@grid[position].class == Fixnum
+	# end
+
+	# def player_moves
+	# 	@grid.count(PLAYER)
+	# end
+
+	# def computer_moves
+	# 	@grid.count(COMPUTER)
+	# end
+
+	# def random_fill
+	# 	i = 0
+	# 	until unoccupied(i)
+	# 		i += 1
+	# 	end
+	# 	store_position(i, "computer")
+	# end
+end
