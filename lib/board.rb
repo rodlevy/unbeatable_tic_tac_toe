@@ -21,55 +21,55 @@ COMPUTER = "O"
 # 	keep going until win
 
 # repeat for other children of that node, filling the next move until all wins are found
-	# def make_possible_boards(current_board, player, depth)
-	# 	possible_boards << current_board
-	# 	next_board = current_board.dup
-	# 	next_board[depth] = player unless depth == (size)
-	# 	print current_board
-	# 	puts "|||||||||||||||"
-	# 	puts depth
-	# 	if depth == (size)
-	# 		depth -= 1
-	# 		puts depth
-	# 		puts player
+	def make_possible_boards(current_board, player, depth)
+		possible_boards << current_board
+		next_board = current_board.dup
+		next_board[depth] = player unless depth == (size)
+		print current_board
+		puts "|||||||||||||||"
+		puts depth
+		if depth == (size)
+			depth -= 1
+			puts depth
+			puts player
 
-	# 		puts "POSSIBLE BOARDS"
-	# 		print possible_boards
-	# 		print "NEXT BOARD\n"
-	# 		print next_board
-	# 		print "\n>>>>>>>>>>>>>>>"
-	# 		if possible_boards.include?(next_board)
-	# 			puts "____________"
-	# 			print next_board
-	# 			puts "____________"
+			puts "POSSIBLE BOARDS"
+			print possible_boards
+			print "NEXT BOARD\n"
+			print next_board
+			print "\n>>>>>>>>>>>>>>>"
+			if possible_boards.include?(next_board)
+				puts "____________"
+				print next_board
+				puts "____________"
 
-	# 			depth -= 1
-	# 			player = take_turn(player)
-	# 			next_board[depth] = player
-	# 			print possible_boards
-	# 			puts ""
-	# 			print "*******"
-	# 			print next_board
-	# 			print "ENNDDD"
-	# 			if depth < (size - 1)
-	# 				depth += 1
-	# 				player = take_turn(player)
-	# 				unless possible_boards.include?(next_board)
-	# 				make_possible_boards(next_board, player, depth)
-	# 				end
-	# 			end
-	# 		end
-	# 		depth = 50
-	# 	end
+				depth -= 1
+				player = take_turn(player)
+				next_board[depth] = player
+				print possible_boards
+				puts ""
+				print "*******"
+				print next_board
+				print "ENNDDD"
+				if depth < (size - 1)
+					depth += 1
+					player = take_turn(player)
+					unless possible_boards.include?(next_board)
+					make_possible_boards(next_board, player, depth)
+					end
+				end
+			end
+			depth = 50
+		end
 
-	# 	if depth < (size)
-	# 		depth += 1
-	# 		player = take_turn(player)
-	# 		puts "IM HEERRREEE"
-	# 		make_possible_boards(next_board, player, depth)
-	# 	end
+		if depth < (size)
+			depth += 1
+			player = take_turn(player)
+			puts "IM HEERRREEE"
+			make_possible_boards(next_board, player, depth)
+		end
 
-	# end
+	end
 
 	def winning_possibilities
 		if grid.length == 9

@@ -52,6 +52,9 @@ COMPUTER = "O"
 				@interface.computer_wins
 				@interface.pretty_print_board(@board.grid)
 				return
+			elsif @board.tie?
+				@interface.cats_game
+				return
 			end
 			play
 		end

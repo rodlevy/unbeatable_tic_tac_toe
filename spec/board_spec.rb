@@ -22,9 +22,14 @@ describe Board do
 		new_board.tie?.should == true
 	end
 
-	it 'checks for a tie' do
+	it 'checks for a tie(4x4)' do
 		new_board_16.grid = ["X","O","X","O","O","O","X","O","X", "X","O","O","X","O","X","X"]
-		new_board.tie?.should == true
+		new_board_16.tie?.should == true
+	end
+
+	it 'checks for a tie(4x4)' do
+		new_board_16.grid = ["X","O","X","O","O","O","X","O","X", "O","O","O","X","X","X","X"]
+		new_board_16.tie?.should == false
 	end
 
 	it "stores player positions" do

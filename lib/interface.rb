@@ -21,7 +21,7 @@ class Interface
 	      if position % axis_length == (axis_length - 1)
 	      	output << "\n" unless position == (size - 1)
 	      else
-	      	if position < 10
+	      	if position < 10 || grid[position].class != Fixnum
 	      		output << " "
 	      	else
 	      		output << ""
