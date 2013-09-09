@@ -1,13 +1,13 @@
 class Interface
 
-	def board_size
+	def grid_size
 		puts "What size board do you want to play (9, 16)"
 		size = gets.chomp
 		if size == "9" || size == "16"
 			return size.to_i
 		else
 			puts "Please enter 9 or 16"
-			board_size
+			grid_size
 		end
 
 	end
