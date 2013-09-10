@@ -13,47 +13,42 @@ describe Computer do
 		new_board.grid.should_not == [0,1,2,"X",4,5,6,7,8]
 	end
 
-	# describe '#first_move' do
-	# 	before(:each) do
-	# 		Board.stub(:new).and_return(new_board)
-	# 	end
+	it 'knows the current player' do
+		new_board.grid = [0,1,2,"X",4,5,6,7,8]
+		new_board.current_player.should == COMPUTER
+	end
 
-	# 	it "should take the center if unoccupied" do
-	# 		new_board.store_position(0, "player")
-	# 		new_computer.first_move(new_board)
-	# 		new_board.grid.should == ["X", 1, 2, 3 , "O", 5, 6, 7, 8]
-	# 	end
 
-	# 	it "should take the upper left corner if center occupied" do
-	# 		new_board.store_position(4, "player")
-	# 		new_computer.first_move(new_board)
-	# 		new_board.grid.should == ["O", 1, 2, 3 , "X", 5, 6, 7, 8]
-	# 	end
+	it "checks for human wins during recursion" do
+		new_board.grid = ["X", 1, 2, "X", 4, 5, "X", 7, 8]
+		new_computer.minimax_recurse(new_board,"X", 1).should == 1
+	end
 
+	it "checks for computer wins during recursion" do
+		new_board.grid = [0, "O", 2, "X", "O", 5, "X", "O", 8]
+		new_computer.minimax_recurse(new_board,"O", 1).should == -1
+	end
+
+	it "checks for ties during recursion" do
+		new_board.grid = ["X","O","X","X","O","O","O","X","X"]
+		new_computer.minimax_recurse(new_board, "O", 8).should == 0
+	end
+
+	# it 'returns sub-alpha values for a given board' do
+	# 	new_board.grid = [0, 1, "O", 3, "O", "X", "X", "X", 8]
+	# 	new_computer.minimax_recurse(new_board, HUMAN, 4).should == 1
+	# end
+
+	it 'returns sub-alpha values for a given board' do
+		new_board.grid = [0, 1, 2 , 3, 4, 5, 6, 7, 8]
+		new_computer.minimax_recurse(new_board, HUMAN, 0).should == 1
+	end
 
 	# end
 
 	# describe '#computer_move' do
 	# 	before(:each) do
 	# 		Board.stub(:new).and_return(new_board)
-	# 	end
-
-	# 	it "should take a winning move if it\'s there" do
-	# 		new_board.grid = ["O",1,2,"X","O","X","X",7,8]
-	# 		new_computer.computer_move(new_board)
-	# 		new_board.grid.should ==  ["O",1,2,"X","O","X","X",7,"O"]
-	# 	end
-
-	# 	it "should block X\'s winning move" do
-	# 		new_board.grid = ["X",1,2,"O","O","X",6,7,"X"]
-	# 		new_computer.computer_move(new_board)
-	# 		new_board.grid.should ==  ["X",1,"O","O","O","X",6,7,"X"]
-	# 	end
-
-	# 	it "should take the left center edge if corners are taken by Player" do
-	# 		new_board.grid = ["X",1,2,3,"O",5,6,7,"X"]
-	# 		new_computer.computer_move(new_board)
-	# 		new_board.grid.should ==  ["X",1,2,"O","O",5,6,7,"X"]
 	# 	end
 
 	# end

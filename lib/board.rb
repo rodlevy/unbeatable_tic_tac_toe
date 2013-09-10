@@ -11,66 +11,6 @@ COMPUTER = "O"
 		@possible_boards = []
 	end
 
-# for a given round (9 rounds in 3x3)
-# determine whose turn it is (x or o),
-# make a duplicate board
-# # fill the first available spot
-# check for win?
-# if no win, store the state of the board, the current depth, the board_score(1,0,-1), and the parent state
-# 	go make another move, repeat from check for win
-# 	keep going until win
-
-# repeat for other children of that node, filling the next move until all wins are found
-	def make_possible_boards(current_board, player, depth)
-		possible_boards << current_board
-		next_board = current_board.dup
-		next_board[depth] = player unless depth == (size)
-		print current_board
-		puts "|||||||||||||||"
-		puts depth
-		if depth == (size)
-			depth -= 1
-			puts depth
-			puts player
-
-			puts "POSSIBLE BOARDS"
-			print possible_boards
-			print "NEXT BOARD\n"
-			print next_board
-			print "\n>>>>>>>>>>>>>>>"
-			if possible_boards.include?(next_board)
-				puts "____________"
-				print next_board
-				puts "____________"
-
-				depth -= 1
-				player = take_turn(player)
-				next_board[depth] = player
-				print possible_boards
-				puts ""
-				print "*******"
-				print next_board
-				print "ENNDDD"
-				if depth < (size - 1)
-					depth += 1
-					player = take_turn(player)
-					unless possible_boards.include?(next_board)
-					make_possible_boards(next_board, player, depth)
-					end
-				end
-			end
-			depth = 50
-		end
-
-		if depth < (size)
-			depth += 1
-			player = take_turn(player)
-			puts "IM HEERRREEE"
-			make_possible_boards(next_board, player, depth)
-		end
-
-	end
-
 	def winning_possibilities
 		if grid.length == 9
 			[[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
@@ -108,6 +48,10 @@ COMPUTER = "O"
 		grid[location].class == Fixnum ? false : grid[location]
 	end
 
+	def get_move_list(grid)
+		grid.select{|cell| cell.class == Fixnum}
+	end
+
 	def unoccupied(position)
 		@grid[position].class == Fixnum
 	end
@@ -118,6 +62,15 @@ COMPUTER = "O"
 
 	def store_position(position, participant)
 		@grid[position] = participant
+	end
+
+	def simulate_move(board, position, player)
+		board.grid[position] = player
+		board
+	end
+
+	def current_player
+		@grid.count(HUMAN) > @grid.count(COMPUTER) ? COMPUTER : HUMAN
 	end
 
 	def check_participant_win(participant)
@@ -146,4 +99,53 @@ COMPUTER = "O"
 		@grid.count(COMPUTER)
 	end
 
+	# def make_possible_boards(current_board, player, depth)
+	# 	possible_boards << current_board
+	# 	next_board = current_board.dup
+	# 	next_board[depth] = player unless depth == (size)
+	# 	print current_board
+	# 	puts "|||||||||||||||"
+	# 	puts depth
+	# 	if depth == (size)
+	# 		depth -= 1
+	# 		puts depth
+	# 		puts player
+
+	# 		puts "POSSIBLE BOARDS"
+	# 		print possible_boards
+	# 		print "NEXT BOARD\n"
+	# 		print next_board
+	# 		print "\n>>>>>>>>>>>>>>>"
+	# 		if possible_boards.include?(next_board)
+	# 			puts "____________"
+	# 			print next_board
+	# 			puts "____________"
+
+	# 			depth -= 1
+	# 			player = take_turn(player)
+	# 			next_board[depth] = player
+	# 			print possible_boards
+	# 			puts ""
+	# 			print "*******"
+	# 			print next_board
+	# 			print "ENNDDD"
+	# 			if depth < (size - 1)
+	# 				depth += 1
+	# 				player = take_turn(player)
+	# 				unless possible_boards.include?(next_board)
+	# 				make_possible_boards(next_board, player, depth)
+	# 				end
+	# 			end
+	# 		end
+	# 		depth = 50
+	# 	end
+
+	# 	if depth < (size)
+	# 		depth += 1
+	# 		player = take_turn(player)
+	# 		puts "IM HEERRREEE"
+	# 		make_possible_boards(next_board, player, depth)
+	# 	end
+
+	# end
 end
