@@ -43,22 +43,27 @@ COMPUTER = "O"
 		elsif player == COMPUTER && board.winner?(player)
 			puts ">>>>>>>>>>>>"
 			return -1
-
 		elsif board.tie?
 			return 0
 		end
-		# next_player = (player == COMPUTER ? HUMAN : COMPUTER )
-		next_player = board.take_turn(board.current_player)
+		next_player = (player == COMPUTER ? HUMAN : COMPUTER )
+
 		possible_moves = board.get_move_list(board.grid)
 		print possible_moves, "\n"
 		possible_moves.each do |move|
 			new_board = board.dup
 			print "\n", move
+			@best_move = move
 			print new_board.grid
 			next_board = new_board.simulate_move(new_board, move, player)
 			@sub_alpha << minimax_recurse(next_board, next_player, depth + 1)
+			print "***  ", @sub_alpha, "***"
 			end
-			print @sub_alpha
+			if player == HUMAN
+				@sub_alpha.max
+			elsif player == COMPUTER
+				@sub_alpha.min
+			end
 	end
 
 end

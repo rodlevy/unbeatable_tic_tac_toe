@@ -34,10 +34,10 @@ describe Computer do
 		new_computer.minimax_recurse(new_board, "O", 8).should == 0
 	end
 
-	# it 'returns sub-alpha values for a given board' do
-	# 	new_board.grid = [0, 1, "O", 3, "O", "X", "X", "X", 8]
-	# 	new_computer.minimax_recurse(new_board, HUMAN, 4).should == 1
-	# end
+	it 'returns sub-alpha values for a given board' do
+		new_board.grid = [0, 1, "O", 3, "O", "X", "X", "X", 8]
+		new_computer.minimax_recurse(new_board, COMPUTER, 5).should == -1
+	end
 
 	it 'returns sub-alpha values for a given board' do
 		new_board.grid = [0, 1, 2 , 3, 4, 5, 6, 7, 8]
