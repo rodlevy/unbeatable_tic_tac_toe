@@ -7,12 +7,6 @@ describe Computer do
 	let(:new_computer) {Computer.new}
 	let(:fun_game) {Game.new(new_interface, new_computer)}
 
-	it 'should fill a random spot, unoccupied, spot on the board' do
-		new_board.grid = [0,1,2,"X",4,5,6,7,8]
-		new_computer.random_fill(new_board)
-		new_board.grid.should_not == [0,1,2,"X",4,5,6,7,8]
-	end
-
 	it 'knows the current player' do
 		new_board.grid = [0,1,2,"X",4,5,6,7,8]
 		new_board.current_player.should == COMPUTER

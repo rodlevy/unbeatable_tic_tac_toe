@@ -2,7 +2,7 @@ class Computer
 
 HUMAN = "X"
 COMPUTER = "O"
-MAX_DEPTH = 5 #to control length of calc time
+MAX_DEPTH = 3 #to control length of calc time
 
 	attr_accessor :best_move, :sub_alpha, :active_player
 
@@ -35,14 +35,18 @@ MAX_DEPTH = 5 #to control length of calc time
 		minimax_recurse(board, current_player, 0)
 	end
 
-	def minimax_recurse(board, player, depth)
-
+	def check_winner(board, depth)
 		winner = 'None'
 		winner = COMPUTER if board.winner?(COMPUTER)
 		winner = HUMAN if board.winner?(HUMAN)
 		winner = 'tie' if board.tie?
 		winner = 'tie' if depth >= MAX_DEPTH
+		winner
+	end
 
+	def minimax_recurse(board, player, depth)
+
+		winner = check_winner(board, depth)
 		unless winner == 'None'
 			if winner == 'tie'
 				return 0

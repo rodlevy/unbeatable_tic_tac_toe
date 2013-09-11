@@ -4,4 +4,7 @@ The first iteration of this game was rules based, on a 3x3 board.
 
 More recent iterations of the game use a recursive implementation of the minimax strategy.
 
-To run the game, download the repo and run main.rb.
+To run the game, download the repo and ruby main.rb.
+
+This code borrows heavily from the pseudocode in
+	http://beej.us/blog/data/minimax/
