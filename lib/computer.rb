@@ -9,7 +9,12 @@ MAX_DEPTH = 3 #to control length of calc time
 	def initialize
 		@sub_alpha = []
 		@best_move = 0
+		@best_moves =[]
 	end
+
+	# def set_max_depth
+	# 	@max_depth = (grid_size == 25 ? 3 : 5)
+	# end
 
 	def computer_move(board)
 		if board.player_moves > board.computer_moves
@@ -43,6 +48,7 @@ MAX_DEPTH = 3 #to control length of calc time
 		winner = 'tie' if depth >= MAX_DEPTH
 		winner
 	end
+
 
 	def minimax_recurse(board, player, depth)
 
@@ -84,6 +90,7 @@ MAX_DEPTH = 3 #to control length of calc time
 			if player == @active_player
 				if ((depth == 0 ) && (alpha <= @sub_alpha ))
 					@best_move = move
+					@best_moves << best_move
 				end
 				alpha = [alpha, @sub_alpha].max
 			else
