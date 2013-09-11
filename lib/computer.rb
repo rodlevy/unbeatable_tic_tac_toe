@@ -52,6 +52,7 @@ COMPUTER = "O"
 		print possible_moves, "\n"
 		possible_moves.each do |move|
 			new_board = board.dup
+			new_board.grid = board.grid.dup
 			print "\n", move
 			@best_move = move
 			print new_board.grid
