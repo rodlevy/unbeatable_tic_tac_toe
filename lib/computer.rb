@@ -2,7 +2,7 @@ class Computer
 
 HUMAN = "X"
 COMPUTER = "O"
-MAX_DEPTH = 3 #to control length of calc time
+MAX_DEPTH = 5#to control length of calc time
 
 	attr_accessor :best_move, :sub_alpha, :active_player
 

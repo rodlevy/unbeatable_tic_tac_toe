@@ -6,7 +6,7 @@ COMPUTER = "O"
 	attr_accessor :grid, :size, :possible_boards, :player
 
 	def initialize(grid_size)
-		@grid = (0..(grid_size - 1)).to_a
+		@grid = Array.new(grid_size)
 		@size = @grid.length
 		@possible_boards = []
 	end
@@ -19,8 +19,6 @@ COMPUTER = "O"
 		elsif grid.length == 25
 			[[0,1,2,3,4], [5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19], [20,21,22,23,24,25], [0,5,10,15,20], [1,6,11,16,21], [2,7,12,17,22], [3,8,13,18,23],[4,9,14,19,24], [0,6,12,18,24],[4,8,12,16,20]]
 		end
-
-
 	end
 
 	def winner?(player)
@@ -55,15 +53,15 @@ COMPUTER = "O"
 	end
 
 	def occupied?(grid, location)
-		grid[location].class == Fixnum ? false : grid[location]
+		grid[location].nil? ? false : grid[location]
 	end
 
 	def get_move_list(grid)
-		grid.select{|cell| cell.class == Fixnum}
+		grid.each_index.select{|index| grid[index].nil?}
 	end
 
 	def unoccupied(position)
-		@grid[position].class == Fixnum
+		@grid[position].nil?
 	end
 
 	def take_turn(player)
