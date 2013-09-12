@@ -1,7 +1,3 @@
-# require 'board'
-# require 'interface'
-require 'pry'
-
 class Game
 
 HUMAN = "X"
@@ -14,49 +10,75 @@ COMPUTER = "O"
 		@computer = computer
 	end
 
-	def check(position, grid)
-		end_of_grid = grid.length
+	def check_within_range(position, grid_length)
 		if position == "0"
-			return position.to_i
-		elsif position.to_i < end_of_grid && position.to_i > 0
-			return position.to_i
+			true
+		elsif position.to_i < grid_length && position.to_i > 0
+			true
 		else
-			@interface.reject(position)
 			false
+		end
+	end
+
+	def check_space_unoccupied(position)
+		@board.unoccupied(position)
+	end
+
+	def validate_input(inputted_position, grid)
+		end_of_grid = grid.length
+
+		until check_within_range(inputted_position, end_of_grid)
+			@interface.reject(inputted_position)
+			@interface.prompt
+			inputted_position = @interface.user_input
+		end
+
+		until check_space_unoccupied(inputted_position.to_i)
+			@interface.denied
+			@interface.prompt
+			inputted_position = @interface.user_input
+		end
+
+		inputted_position.to_i
+	end
+
+	def game_over
+		(@board.tie? || @board.winner?(COMPUTER) || @board.winner?(HUMAN))
+	end
+
+	def check_board_after_computer_move
+		if @board.winner?("O") == true
+			@interface.computer_wins
+			@interface.pretty_print_board(@board.grid)
+
+		elsif @board.tie?
+			@interface.cats_game
 		end
 	end
 
 	def play
 		@board = @board || Board.new(@interface.grid_size)
-		@interface.pretty_print_board(@board.grid)
-		@position = check(@interface.prompt, @board.grid)
 
-		 if !@position
-				play
-		end
-		if !@board.unoccupied(@position)
-			@interface.denied
-			play
-		end
-		@board.store_position(@position, HUMAN)
-		if @board.tie?
-			@interface.cats_game
-			return
-		end
-		if @board.winner?("X") == true
-			@interface.player_wins
+		until game_over
+
 			@interface.pretty_print_board(@board.grid)
-		else
-			@computer.computer_move(@board)
-			if @board.winner?("O") == true
-				@interface.computer_wins
-				@interface.pretty_print_board(@board.grid)
-				return
-			elsif @board.tie?
+			@interface.prompt
+			position = validate_input(@interface.user_input, @board.grid)
+
+			@board.store_position(position, HUMAN)
+
+			if @board.tie?
 				@interface.cats_game
-				return
 			end
-			play
+
+			if @board.winner?("X") == true
+				@interface.player_wins
+				@interface.pretty_print_board(@board.grid)
+			else
+				@computer.computer_move(@board)
+				check_board_after_computer_move
+			end
+
 		end
 	end
 

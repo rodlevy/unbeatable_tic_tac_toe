@@ -33,14 +33,12 @@ class Interface
       	end
       end
 
-
 	end
 
 	def pretty_print_board(grid)
 		output = ""
 		size = grid.length
 	    size.times do |position|
-
 	      	output << (grid[position].nil? ? position.to_s : "#{grid[position]}")
 	   		insert_spaces(position, size, output, grid)
 	    end
@@ -49,7 +47,11 @@ class Interface
 
 	def prompt
 		puts "Where do you want to place your X?"
+	end
+
+	def user_input
 		gets.chomp
+
 	end
 
 	def denied

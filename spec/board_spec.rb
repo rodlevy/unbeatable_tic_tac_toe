@@ -34,11 +34,11 @@ describe Board do
 
 	it "stores player positions" do
 		new_board.store_position(1, HUMAN)
-		new_board.grid.should == [0, "X",2,3,4,5,6,7,8]
+		new_board.grid.should == [nil, "X",nil,nil,nil,nil,nil,nil,nil]
 	end
 
 	it "checks to see if a spot is occupied" do
-		grid = [0,1,2,3,4,5,6,7,8]
+		grid = [nil,nil,nil,nil,nil,nil,nil,nil,nil]
 		new_board.occupied?(grid, 3).should eq false
 	end
 
@@ -47,43 +47,19 @@ describe Board do
 	end
 
 	it 'stores simulated moves' do
-		new_board.grid = [0, "X",2,3,4,5,6,7,8]
+		new_board.grid = [nil, "X",nil,nil,nil,nil,nil,nil,nil]
 		board_copy = new_board.dup
-		board_copy.simulate_move(board_copy, 3, "O").grid.should == [0, "X",2,"O",4,5,6,7,8]
+		board_copy.simulate_move(board_copy, 3, "O").grid.should == [nil, "X",nil,"O",nil,nil,nil,nil,nil]
 	end
 
 
 	it 'makes a list of possible moves' do
-		grid = [0, "X",2,3,4,5,6,7,8]
+		grid = [nil, "X",nil,nil,nil,nil,nil,nil,nil]
 		new_board.get_move_list(grid).should == [0,2,3,4,5,6,7,8]
 	end
 
-	# it "makes initial possible board" do
-	# 	new_board.make_possible_boards([0,1,2,3,4,5,6,7,8], HUMAN, 0)
-	# 	new_board.possible_boards.should include([0,1,2,3,4,5,6,7,8])
-	# end
-	# it "makes board with first move" do
-	# 	new_board.make_possible_boards([0,1,2,3,4,5,6,7,8], HUMAN, 0)
-	# 	new_board.possible_boards.should include([HUMAN,1,2,3,4,5,6,7,8])
-	# end
-
-	# it "makes board with second move" do
-	# 	new_board.make_possible_boards([0,1,2,3,4,5,6,7,8], HUMAN, 0)
-	# 	new_board.possible_boards.should include([HUMAN,COMPUTER,2,3,4,5,6,7,8])
-	# end
-
-	# it 'makes the last board' do
-	# 	new_board.make_possible_boards([0,1,2,3,4,5,6,7,8], HUMAN, 0)
-	# 	new_board.possible_boards.should include([HUMAN,COMPUTER, HUMAN,COMPUTER,HUMAN,COMPUTER,HUMAN,COMPUTER,HUMAN])
-	# end
-
-	# it 'makes a second version of the last board' do
-	# 	new_board.make_possible_boards([0,1,2,3,4,5,6,7,8], HUMAN, 0)
-	# 	new_board.possible_boards.should include([HUMAN,COMPUTER, HUMAN,COMPUTER,HUMAN,COMPUTER,HUMAN,HUMAN,COMPUTER])
-	# end
-
 	it "checks for unoccupied spaces" do
-		new_board.grid = [0, "X",2,3,4,5,6,7,8]
+		new_board.grid = [nil, "X",nil,nil,nil,nil,nil,nil,nil]
 		new_board.unoccupied(1).should == false
 	end
 
