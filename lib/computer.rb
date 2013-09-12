@@ -2,7 +2,7 @@ class Computer
 
 HUMAN = "X"
 COMPUTER = "O"
-MAX_DEPTH = 5#to control length of calc time
+MAX_DEPTH = 5  #to control length of calc time
 
 	attr_accessor :best_move, :sub_alpha, :active_player
 
@@ -51,7 +51,6 @@ MAX_DEPTH = 5#to control length of calc time
 
 
 	def minimax_recurse(board, player, depth)
-
 		winner = check_winner(board, depth)
 		unless winner == 'None'
 			if winner == 'tie'
@@ -73,20 +72,12 @@ MAX_DEPTH = 5#to control length of calc time
 
 		possible_moves = board.get_move_list(board.grid)
 
-		# print "MOVES LEFT:", possible_moves, "\n"
-
 		possible_moves.each_with_index do |move, index|
 			new_board = board.dup
 			new_board.grid = board.grid.dup
-			# print "\n, MOVE: ", move
-			# print new_board.grid
-			# print "\n PLAYER ", player
 			next_board = new_board.simulate_move(new_board, move, player)
-			# print "\n NEXT BOARD", next_board.grid
-			# print "\n DEPTH: ", depth
 			@sub_alpha = minimax_recurse(next_board, next_player, depth + 1)
 
-			# print "BEST MOVE SO FAR: ", @best_move," sub_alpha: ", @sub_alpha, "***"
 			if player == @active_player
 				if ((depth == 0 ) && (alpha <= @sub_alpha ))
 					@best_move = move
@@ -96,9 +87,7 @@ MAX_DEPTH = 5#to control length of calc time
 			else
 				alpha = [alpha, @sub_alpha].min
 			end
-			# print "BEST MOVE FINAL:", @best_move,"sub_alpha: ", @sub_alpha, "***"
 		end
-		# print "ALPHA: ", alpha
 		alpha
 	end
 

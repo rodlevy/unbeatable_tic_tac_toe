@@ -2,7 +2,7 @@ class Interface
 
 	def opening_prompt
 		puts "What size board do you want to play (9, 16, 25)"
-		size = gets.chomp
+		size = user_input
 		size
 	end
 
@@ -51,7 +51,6 @@ class Interface
 
 	def user_input
 		gets.chomp
-
 	end
 
 	def denied

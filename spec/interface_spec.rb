@@ -20,5 +20,19 @@ describe Interface do
 	# it 'prints a board that corresponds to the grid size' do
 
 	# end
+	it 'gets the initial input from human' do
+		new_interface.stub(:gets){"9\n"}
+		new_interface.opening_prompt.should == "9"
+	end
+
+	it 'determines the grid length of the board' do
+		new_interface.stub(:gets){"9\n"}
+		new_interface.grid_size.should == 9
+	end
+
+	it 'prints out a pretty board' do
+		new_interface.should_receive(:puts).with("\n Your Board \n\n\n0   1   2\n3   4   5\n6   7   8")
+		new_interface.pretty_print_board(new_board.grid)
+	end
 
 end
