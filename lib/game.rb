@@ -67,10 +67,6 @@ COMPUTER = "O"
 
 			@board.store_position(position, HUMAN)
 
-			if @board.tie?
-				@interface.cats_game
-			end
-
 			if @board.winner?("X") == true
 				@interface.player_wins
 				@interface.pretty_print_board(@board.grid)

@@ -24,7 +24,7 @@ MAX_DEPTH = 5  #to control length of calc time
 	end
 
 	def computers_move(board)
-		if board.computer_moves == 0
+		if board.computer_moves < 0
 			if board.unoccupied(6)
 				board.store_position(6, COMPUTER)
 			else
@@ -32,6 +32,8 @@ MAX_DEPTH = 5  #to control length of calc time
 			end
 		else
 			minimax(board, @active_player)
+			puts @best_move
+			print @best_moves
 			board.store_position(@best_move, @active_player)
 		end
 	end
@@ -72,7 +74,7 @@ MAX_DEPTH = 5  #to control length of calc time
 
 		possible_moves = board.get_move_list(board.grid)
 
-		possible_moves.each_with_index do |move, index|
+		possible_moves.each do |move|
 			new_board = board.dup
 			new_board.grid = board.grid.dup
 			next_board = new_board.simulate_move(new_board, move, player)
@@ -81,7 +83,6 @@ MAX_DEPTH = 5  #to control length of calc time
 			if player == @active_player
 				if ((depth == 0 ) && (alpha <= @sub_alpha ))
 					@best_move = move
-					@best_moves << best_move
 				end
 				alpha = [alpha, @sub_alpha].max
 			else
